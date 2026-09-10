@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@plugin "daisyui" {
+  themes: light , dark  --default;
+  
+}
+
+:root {
+  font-family: "Roboto Condensed", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
