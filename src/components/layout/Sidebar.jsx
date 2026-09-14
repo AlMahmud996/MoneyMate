@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { Lottie } from 'lottie-react';
 import moneyMateLogo from '../../assets/images/Circle_M.json';
@@ -10,21 +11,19 @@ const linkClass = ({ isActive }) =>
 export default function Sidebar() {
     return (
         <aside className="w-60 min-h-screen bg-base-100 border-r border-base-300 p-4 flex flex-col">
-
-            <div className="flex items-center">
-                <span className="flex items-center text-3xl font-bold tracking-tight">
+            <Link to = "/" className="flex  items-center hover:scale-105 transition-opacity cursor-pointer">
+                <span className="flex items-center text-3xl font-bold">
                     <Lottie
                         style={{ width: "40px", height: "40px" }}
                         src={moneyMateLogo}
                         loop
                         autoplay
                     />
-
                     <span>oney</span>
                     <span className="text-green-500">M</span>
                     <span>ate</span>
                 </span>
-            </div>
+            </Link>
 
             <nav className="flex flex-col  gap-1 py-4 flex-1">
                 <NavLink to="/dashboard" className={linkClass}>
