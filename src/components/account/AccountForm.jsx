@@ -18,11 +18,11 @@ export default function AccountForm({ initialValues, onSubmit, onCancel }) {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3">
       <label className="form-control">
-        <span className="label-text">Name</span>
+        <span className="label-text">Name  </span>
         <input name="name" value={form.name} onChange={handleChange} required className="input input-bordered" />
       </label>
       <label className="form-control">
-        <span className="label-text">Type</span>
+        <span className="label-text">Type  </span>
         <select name="type" value={form.type} onChange={handleChange} className="select select-bordered">
           <option value="cash">Cash</option>
           <option value="debit">Debit</option>
@@ -31,7 +31,7 @@ export default function AccountForm({ initialValues, onSubmit, onCancel }) {
         </select>
       </label>
       <label className="form-control">
-        <span className="label-text">Initial Balance</span>
+        <span className="label-text">Initial Balance  </span>
         <input type="number" name="initialBalance" value={form.initialBalance} onChange={handleChange} className="input input-bordered" />
       </label>
       <div className="flex justify-end gap-2 mt-2">

@@ -6,7 +6,6 @@ export default function FixedExpenseList({ fixedExpenses, categories, onPay, onE
   const grouped = categories
     .map((cat) => ({ category: cat, items: fixedExpenses.filter((fx) => fx.categoryId === cat.id) }))
     .filter((g) => g.items.length > 0);
-console.log('grouped:', grouped);
   return (
     <div className="flex flex-col gap-6">
       {grouped.map(({ category, items }) => (

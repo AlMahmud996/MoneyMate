@@ -16,6 +16,10 @@ export default function AccountList({ accounts, onCardClick, onDelete }) {
               <button onClick={() => onDelete(acc.id)} className="btn btn-sm btn-error btn-outline">Delete</button>
             </div>
           </div>
+          <div className="flex gap-2">
+            <span className="badge badge-outline capitalize w-fit">{acc.type}</span>
+            {acc.isSalaryAccount && <span className="badge badge-success badge-sm">Salary account</span>}
+          </div>
         </div>
       ))}
     </div>

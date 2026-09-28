@@ -9,17 +9,32 @@ export default function AccountPage() {
   const { accounts, addAccount, deleteAccount, addIncome } = useAppContext();
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [incomeTarget, setIncomeTarget] = useState(null);
+  const [incomeError, setIncomeError] = useState(null);
 
   const closeAdd = () => setIsAddOpen(false);
+
+  const openIncome = (account) => {
+    setIncomeError(null);
+    setIncomeTarget(account);
+  };
+
+  const closeIncome = () => {
+    setIncomeError(null);
+    setIncomeTarget(null);
+  };
 
   const handleAddAccount = (form) => {
     addAccount(form);
     closeAdd();
   };
 
-  const handleAddIncome = (form) => {
-    addIncome({ accountId: incomeTarget.id, ...form });
-    setIncomeTarget(null);
+  const handleAddIncome = async (form) => {
+    try {
+      await addIncome({ accountId: incomeTarget.id, ...form }).unwrap();
+      closeIncome();
+    } catch (err) {
+      setIncomeError(err.message);
+    }
   };
 
   return (
@@ -34,7 +49,7 @@ export default function AccountPage() {
 
       <AccountList
         accounts={accounts}
-        onCardClick={setIncomeTarget}
+        onCardClick={openIncome}
         onDelete={(id) => deleteAccount({ id })}
       />
 
@@ -42,9 +57,17 @@ export default function AccountPage() {
         <AccountForm onSubmit={handleAddAccount} onCancel={closeAdd} />
       </Modal>
 
-      <Modal isOpen={!!incomeTarget} onClose={() => setIncomeTarget(null)} title="Add Income">
+      <Modal isOpen={!!incomeTarget} onClose={closeIncome} title="Add Income">
         {incomeTarget && (
-          <IncomeForm account={incomeTarget} onSubmit={handleAddIncome} onCancel={() => setIncomeTarget(null)} />
+          <>
+            <IncomeForm
+              account={incomeTarget}
+              accounts={accounts}
+              onSubmit={handleAddIncome}
+              onCancel={closeIncome}
+            />
+            {incomeError && <p className="text-error text-sm mt-2">{incomeError}</p>}
+          </>
         )}
       </Modal>
     </div>

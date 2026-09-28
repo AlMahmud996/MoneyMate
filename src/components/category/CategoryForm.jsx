@@ -18,11 +18,11 @@ export default function CategoryForm({ accounts, initialValues, onSubmit, onCanc
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3">
       <label className="form-control">
-        <span className="label-text">Name</span>
+        <span className="label-text">Name </span>
         <input name="name" value={form.name} onChange={handleChange} required className="input input-bordered" />
       </label>
       <label className="form-control">
-        <span className="label-text">Description</span>
+        <span className="label-text">Description </span>
         <textarea name="description" value={form.description} onChange={handleChange} className="textarea textarea-bordered" />
       </label>
       <div className="flex justify-end gap-2 mt-2">

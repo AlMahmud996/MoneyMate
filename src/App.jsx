@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import LandingPage from './pages/LandingPage';
 import Dashboard from '../src/pages/Dashboard';
+import CheckWeather from './pages/CheckWeather';
 import AccountPage from './pages/AccountPage';
 import CategoryPage from './pages/CategoryPage';
 import FixedExpensePage from './pages/FixedExpensePage';
@@ -25,6 +26,7 @@ export default function App() {
         <Route element={<Layout />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/CheckWeather" element={<CheckWeather/>} />
           <Route path="/account" element={<AccountPage />} />
           <Route path="/category" element={<CategoryPage />} />
           <Route path="/category/fixed" element={<FixedExpensePage />} />

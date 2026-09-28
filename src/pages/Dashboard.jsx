@@ -4,7 +4,7 @@ import { motion } from 'motion/react';
 import UnpaidFixedExpenses from '../components/dashboard/UnpaidFixedExpenses';
 import CategorySpendChart from '../components/dashboard/CategorySpendChart';
 import AccountBalanceChart from '../components/dashboard/AccountBalanceChart';
-import backgroundDash from '../assets/images/background.jpg'
+import { useNavigate } from 'react-router';
 
 export default function Dashboard() {
     const { accounts, categories, expenses, fixedExpenses } = useAppContext();
@@ -12,8 +12,12 @@ export default function Dashboard() {
     const totalBalance = accounts.reduce((sum, a) => sum + a.balance, 0);
     const totalFixedTarget = fixedExpenses.reduce((s, f) => s + f.target, 0);
 
+    const navigate = useNavigate();
+    const handleClick = () => {
+        navigate("/CheckWeather");
+    }
+
     const totalTarget = 0
-    console.log('totalTarget:', totalTarget);
 
     const categorySpend = categories.map((cat) => {
         const regularSpent = expenses
@@ -28,24 +32,15 @@ export default function Dashboard() {
     });
 
 
-    const grouped = categories
-        .map((cat) => ({ category: cat, items: fixedExpenses.filter((fx) => fx.categoryId === cat.id) }))
-        .filter((g) => g.items.length > 0);
-    console.log('grouped:', grouped);
-
     return (
         <div className="relative min-h-screen overflow-hidden">
-            <img
-                src={backgroundDash}
-                alt=""
-                className="absolute inset-0 w-full h-full object-cover -z-10"
-            />
+            
             <div className="navbar rounded-2xl bg-neutral border-green-300 border-b px-6 ">
                 <div className="flex justify-between items-center w-full">
                     <motion.h1 animate={{ y: [-20, 20, -20] }}
                         transition={{ duration: 6, repeat: Infinity }} className="text-3xl font-bold text-neutral-content m-6">Dash<span className="text-green-500">B</span>oard</motion.h1>
                     <div className="flex-none flex items-center gap-3">
-                        <button className="btn btn-sm bg-green-600 hover:bg-green-700 text-white border-none">
+                        <button onClick={handleClick} className="btn btn-sm bg-green-600 hover:bg-green-700 text-white border-none">
                             Check Weather
                         </button>
                         <div className="dropdown dropdown-end">
@@ -76,7 +71,7 @@ export default function Dashboard() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 m-8">
                 <div className="stat bg-base-100 shadow rounded-lg">
                     <div className="stat-title">Total Balance</div>
-                    <div className="stat-value">৳{totalBalance.toLocaleString()}</div>
+                    <div className="stat-value">৳{totalBalance}</div>
                 </div>
                 <div className="stat bg-base-100 shadow rounded-lg">
                     <div className="stat-title">Accounts</div>
@@ -84,7 +79,7 @@ export default function Dashboard() {
                 </div>
                 <div className="stat bg-base-100 shadow rounded-lg">
                     <div className="stat-title">Fixed Target Total</div>
-                    <div className="stat-value">৳{totalFixedTarget.toLocaleString()}</div>
+                    <div className="stat-value">৳{totalFixedTarget}</div>
                 </div>
             </div>
 
@@ -108,7 +103,6 @@ export default function Dashboard() {
                 {categorySpend.map((cat) => {
 
                     // console.log('cat:', cat);
-                    console.log('totalTarget:', grouped.reduce((sum, g) => g.category.id === cat.id ? g.items.reduce((s, fx) => s + fx.target, 0) : sum, 0));
                     const pct = cat.budgetTarget ? Math.min(100, Math.round((cat.spent / totalTarget) * 100)) : 0;
                     return (
                         <div key={cat.id}>
